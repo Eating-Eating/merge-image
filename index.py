@@ -34,7 +34,7 @@ class NumberValidator(Validator):
 
 def dfs (img, index,arr,size):
     for addImg in arr[index]:
-        tempImg = Image.new("RGBA", [size['width'],size['height']])
+        tempImg = Image.new("RGBA", size)
         tempImg.paste(img,(0,0), img)
         tempImg.paste(Image.open(addImg), (0,0), Image.open(addImg))
         if index == len(arr) - 1:
@@ -47,7 +47,7 @@ def dfs (img, index,arr,size):
             dfs(tempImg, index+1,arr,size)
 
 
-def main(size = {'width':64,'height':64}):
+def main(size = [64,64]):
     path = os.path.join(os.getcwd(), IMAGE_DIR)
     arr = []
     for base_dir, sub_dir_list, sub_file_list in os.walk(path):
@@ -63,4 +63,4 @@ def main(size = {'width':64,'height':64}):
 if __name__ == '__main__':
     width = prompt('Give me ouput width(px): ',validator=NumberValidator(),style= mystyle)
     height = prompt('Give me ouput height(px): ',validator=NumberValidator(),style= mystyle)
-    main({'width':int(width),'height':int(height)})
+    main([int(width),int(height)])
